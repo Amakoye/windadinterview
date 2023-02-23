@@ -12,9 +12,10 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import postsReducer from "./slices/posts/posts";
 
 const reducer = combineReducers({
-  //reducers go here
+  postsReducer: postsReducer,
 } as const);
 
 const persistConfig: Omit<PersistConfig<State>, "blacklist" | "whitelist"> &
