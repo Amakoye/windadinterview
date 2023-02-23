@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import axios from "axios";
 import {
   FLUSH,
   PAUSE,
@@ -42,6 +43,15 @@ const useDispatch = () => store.dispatch;
 
 const persistor = persistStore(store);
 
+const API_URL = "https://jsonplaceholder.typicode.com";
+
+const api = axios.create({
+  headers: {
+    "Content-Type": "application/json",
+  },
+  baseURL: API_URL,
+});
+
 // types below
 export type Dispatch = typeof store.dispatch;
 export type State = ReturnType<typeof reducer>;
@@ -50,4 +60,4 @@ declare global {
   export type State = ReturnType<typeof reducer>;
 }
 
-export { store, useDispatch, persistor };
+export { store, useDispatch, persistor, api };
