@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { TypedUseSelectorHook } from "react-redux";
+import { useSelector as useAppSelector } from "react-redux";
 import {
   FLUSH,
   PAUSE,
@@ -22,9 +24,7 @@ const persistConfig: Omit<PersistConfig<State>, "blacklist" | "whitelist"> &
   Partial<Record<"blacklist" | "whitelist", (keyof State)[]>> = {
   key: "root",
   storage,
-  whitelist: [
-    /* whiltelisted reducers go here */
-  ],
+  whitelist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig as any, reducer);
@@ -41,6 +41,7 @@ const store = configureStore({
 });
 
 const useDispatch = () => store.dispatch;
+const useSelector: TypedUseSelectorHook<State> = useAppSelector;
 
 const persistor = persistStore(store);
 
@@ -61,4 +62,4 @@ declare global {
   export type State = ReturnType<typeof reducer>;
 }
 
-export { store, useDispatch, persistor, api };
+export { store, useDispatch, persistor, api, useSelector };

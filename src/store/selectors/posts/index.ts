@@ -7,4 +7,9 @@ const selectAllPosts = createDraftSafeSelector(
   (state) => state.posts
 );
 
-export { selectAllPosts };
+const postsLoading = createDraftSafeSelector(
+  selectPostsState,
+  (state) => state.loading
+);
+
+export { selectAllPosts, postsLoading };

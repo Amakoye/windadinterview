@@ -1,25 +1,26 @@
 import { styled } from "@mui/material/styles";
 import { FC, useEffect } from "react";
-import { store, useDispatch } from "store";
-import { selectAllPosts } from "store/selectors/posts";
+
+import { useDispatch, useSelector } from "store";
 import { getAllPosts } from "store/thunks/posts/posts";
 import Post from "./Post";
 
 const Posts: FC = () => {
   const dispatch = useDispatch();
   //state
-  const state = store.getState();
-  const posts = selectAllPosts(state);
 
-  console.log(posts);
+  const { loading, posts } = useSelector((store) => store.postsReducer);
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch]);
+  }, [dispatch, posts.length]);
 
   return (
     <RootStyles>
-      {posts.length && posts.map((post, i) => <Post key={post.id} {...post} />)}
+      {loading && <p>Loading...</p>}
+      {posts.map((post, i) => (
+        <Post key={post.id} {...post} />
+      ))}
     </RootStyles>
   );
 };
