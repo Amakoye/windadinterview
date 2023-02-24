@@ -16,17 +16,19 @@ import {
 import storage from "redux-persist/lib/storage";
 import commentReducer from "./slices/comments/comments";
 import postsReducer from "./slices/posts/posts";
+import usersReducer from "./slices/users";
 
 const reducer = combineReducers({
   postsReducer: postsReducer,
   commentsReducer: commentReducer,
+  usersReducers: usersReducer,
 } as const);
 
 const persistConfig: Omit<PersistConfig<State>, "blacklist" | "whitelist"> &
   Partial<Record<"blacklist" | "whitelist", (keyof State)[]>> = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ["usersReducers"],
 };
 
 const persistedReducer = persistReducer(persistConfig as any, reducer);
