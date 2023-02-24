@@ -1,13 +1,9 @@
-import Typography from "@mui/material/Typography";
-import Posts from "../features/posts";
+import SignIn from "features/auth/SignIn";
 
 export default function Home() {
   return (
     <>
-      <Typography color="primary" variant="h3" textAlign="center" mt={2}>
-        All Posts
-      </Typography>
-      <Posts />
+      <SignIn />
     </>
   );
 }

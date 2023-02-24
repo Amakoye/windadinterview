@@ -14,10 +14,12 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import commentReducer from "./slices/comments/comments";
 import postsReducer from "./slices/posts/posts";
 
 const reducer = combineReducers({
   postsReducer: postsReducer,
+  commentsReducer: commentReducer,
 } as const);
 
 const persistConfig: Omit<PersistConfig<State>, "blacklist" | "whitelist"> &
